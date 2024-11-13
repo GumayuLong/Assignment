@@ -1,13 +1,13 @@
-h1.head_title = @job.title
-p
-  strong Company:
-  |  #{@job.company.name}
-p
-  strong Location:
-  |  #{@job.location}
-p
-  strong Type:
-  |  #{@job.job_type}
-p = @job.description
-
-= button_to 'Apply', method: :post,  class: 'btn btn-primary btn-lg'
+h1.text-center = @job.title
+h3.my-4
+  | Jobs at 
+  = @job.company.name
+.row.jumbotron
+  .col-md-10
+    .card
+      .card-body
+        h5.card-title
+        h3 = 'Work at: ' + @job.location + ' - ' + @job.job_type
+        p Description:
+        p = @job.description
+        = link_to 'Apply', '#', class: 'btn btn-success'
