@@ -9,7 +9,7 @@ class JobsController < ApplicationController
     @job_types = Job.distinct.pluck(:job_type)
 
     # Tìm kiếm theo job_types (nếu có)
-    if params[:job_type].present? && params[:job_type] != 'All' 
+    if params[:job_type].present? && params[:job_type] != 'All'
       if !params[:title].present?
         @jobs = @jobs.where(job_type: "%#{params[:job_type]}").page(params[:page]).per_page(ELEMENT_EACH_PAGE)
       else
