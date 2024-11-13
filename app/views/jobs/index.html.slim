@@ -20,8 +20,8 @@ h1 Job Listings
     ul
       = will_paginate @jobs, renderer: BootstrapPagination::Rails, previous_label: 'Previous', next_label: 'Next'
       - @jobs.each do |job|
-        li
-          h2 = link_to job.title, job_path(job)
+        li.jumbotron
+          h2.company_name = link_to job.title, job_path(job)
           p 
             | Created at: 
             = job.created_at
@@ -37,4 +37,5 @@ h1 Job Listings
           p 
             | Description: 
             = job.description
+        hr
       = will_paginate @jobs, renderer: BootstrapPagination::Rails, previous_label: 'Previous', next_label: 'Next'
