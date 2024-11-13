@@ -1,0 +1,40 @@
+h1 Job Listings
+
+/ = form_with url: jobs_path, method: :get, local: true do |form|
+/   label Job Type:
+/   = form.select :job_type, options_for_select(@job_types, params[:job_type]), include_blank: "All"
+
+/   label Title:
+/   = form.text_field :title, value: params[:title]
+
+/   = form.submit "Search"
+.row
+    .field
+      = label_tag :query, 'Search:'
+      = text_field_tag :query, params[:query], placeholder: 'Nhập name hoặc email', class: 'form-control'
+
+    .actions
+      = submit_tag 'Tìm kiếm', class: 'btn btn-info btn-lg'
+
+
+    ul
+      = will_paginate @jobs, renderer: BootstrapPagination::Rails, previous_label: 'Previous', next_label: 'Next'
+      - @jobs.each do |job|
+        li
+          h2 = link_to job.title, job_path(job)
+          p 
+            | Created at: 
+            = job.created_at
+          p
+            | Company: 
+            = job.company.name
+          p
+            | Location: 
+            = job.location
+          p
+            | Type: 
+            = job.job_type
+          p 
+            | Description: 
+            = job.description
+      = will_paginate @jobs, renderer: BootstrapPagination::Rails, previous_label: 'Previous', next_label: 'Next'
