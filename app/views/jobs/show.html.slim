@@ -1,6 +1,6 @@
 h1.text-center = @job.title
 h3.my-4
-  | Jobs at 
+  | Company: 
   = @job.company.name
 .row.jumbotron
   .col-md-10
@@ -10,4 +10,4 @@ h3.my-4
         h3 = 'Work at: ' + @job.location + ' - ' + @job.job_type
         p Description:
         p = @job.description
-        = link_to 'Apply', '#', class: 'btn btn-success'
+        = link_to 'Apply', new_job_application_path(@job), class: 'btn btn-success'
