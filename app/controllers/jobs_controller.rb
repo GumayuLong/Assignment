@@ -9,11 +9,11 @@ class JobsController < ApplicationController
     @job_types = Job.distinct.pluck(:job_type)
 
     # Tìm kiếm theo job_types (nếu có)
-    if params[:job_type].present? && params[:job_type] != 'All'
+    if params[:job_type].present? && Job.job_types.keys.include?(params[:job_type])
       if !params[:title].present?
-        @jobs = @jobs.where(job_type: "%#{params[:job_type]}").page(params[:page]).per_page(ELEMENT_EACH_PAGE)
+        @jobs = @jobs.where(job_type: Job.job_types[params[:job_type]]).page(params[:page]).per_page(ELEMENT_EACH_PAGE)
       else
-        @jobs = @jobs.where('jobs.title LIKE ? AND jobs.job_type LIKE ?', "%#{params[:title]}%", "%#{params[:job_type]}%").page(params[:page]).per_page(ELEMENT_EACH_PAGE)
+        @jobs = @jobs.where('jobs.title LIKE ? AND jobs.job_type = ?', "%#{params[:title]}%", Job.job_types[params[:job_type]]).page(params[:page]).per_page(ELEMENT_EACH_PAGE)
       end
     else
       if params[:title].present?

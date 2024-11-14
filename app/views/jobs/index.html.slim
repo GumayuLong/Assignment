@@ -8,7 +8,7 @@ h1 Job Listings
 
     div.form-group
       = form.label :job_type, 'Job Type:', class: 'form-label'
-      = form.select :job_type, options_for_select(@job_types, params[:job_type]), include_blank: 'All', class: 'form-control'
+      = form.select :job_type, options_for_select(Job.job_types.keys.map { |key| [key.titleize, key] }, params[:job_type]), include_blank: 'All', class: 'form-control'
 
     = form.submit 'Search', class: 'btn btn-primary btn-md', style: 'margin-top: 10px'
   - if @jobs.any?

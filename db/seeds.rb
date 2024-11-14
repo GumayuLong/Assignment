@@ -1,18 +1,26 @@
 puts 'In processing ...'
-10.times do
-  company = Company.create!(
-    name: Faker::Name.name,
-    created_at: Faker::Date.backward(days: 30)
-    )
+locations = []
+7.times do
+  locations << Location.create(locate: Faker::Address.city)
+end
 
-  rand(3..10).times do
-    company.jobs.create!(
-      title: Faker::Job.title,
-      location: Faker::Address.city,
-      job_type: ['Full-time', 'Part-time', 'Freelance'].sample,
-      description: Faker::Lorem.paragraph(sentence_count: 50),
-      created_at: Faker::Date.backward(days: 30)
-    )
-  end
+companies = []
+10.times do
+  companies << Company.create(
+    name: Faker::Company.name,
+    created_at: Faker::Date.backward(days: 30)
+  )
+end
+
+50.times do
+  job = Job.create!(
+    title: Faker::Job.title,
+    company: companies.sample,
+    location: Faker::Address.city,
+    job_type: rand(1..3),
+    description: Faker::Lorem.paragraph(sentence_count: 50),
+    created_at: Faker::Date.backward(days: 30)
+  )
+  job.locations << locations.sample(rand(1..3))
 end
 print '... done!'
