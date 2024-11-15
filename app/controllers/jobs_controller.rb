@@ -15,4 +15,13 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
   end
+
+  def import
+    if request.post? && params[:file].present?
+      job_importer = JobImporter.new(params[:file])
+      job_importer.import
+      flash[:notice] = 'Jobs imported successfully.'
+      redirect_to jobs_path
+    end
+  end
 end

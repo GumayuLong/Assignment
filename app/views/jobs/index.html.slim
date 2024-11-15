@@ -11,6 +11,7 @@ h1 Job Listings
       = form.select :job_type, options_for_select(Job.job_types.keys.map { |key| [key.titleize, key] }, params[:job_type]), include_blank: 'All', class: 'form-control'
 
     = form.submit 'Search', class: 'btn btn-primary btn-md', style: 'margin-top: 10px'
+    = link_to 'Create job', import_jobs_path, class: 'btn btn-success', style: 'margin-top: 10px; margin-left: 10px'
   - if @jobs.any?
     ul
       = will_paginate @jobs, renderer: BootstrapPagination::Rails, previous_label: 'Previous', next_label: 'Next'
