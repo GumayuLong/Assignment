@@ -1,0 +1,6 @@
+.row
+  .container.jumbotron.col-md-6.col-md-offset-3
+    h1 Import Jobs
+    = form_with url: import_jobs_path, method: :post, local: true, enctype: "multipart/form-data" do |form|
+      = form.file_field :file, accept: '.csv', class: 'form-control'
+      = form.submit 'Import Jobs', class: 'btn btn-success btn-md', style: 'margin-top: 10px'

@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_13_024514) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_14_033432) do
+  create_table "applications", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.string "application_name"
+    t.string "application_email"
+    t.datetime "application_birthday"
+    t.string "application_gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_applications_on_job_id"
+  end
+
   create_table "companies", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -21,12 +32,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_13_024514) do
     t.string "title"
     t.bigint "company_id", null: false
     t.string "location"
-    t.string "job_type"
+    t.integer "job_type", default: 0
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_jobs_on_company_id"
   end
 
+  create_table "jobs_locations", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_jobs_locations_on_job_id"
+    t.index ["location_id"], name: "index_jobs_locations_on_location_id"
+  end
+
+  create_table "locations", charset: "utf8mb3", force: :cascade do |t|
+    t.string "locate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "applications", "jobs"
   add_foreign_key "jobs", "companies"
+  add_foreign_key "jobs_locations", "jobs"
+  add_foreign_key "jobs_locations", "locations"
 end

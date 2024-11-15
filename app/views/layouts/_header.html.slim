@@ -1,0 +1,14 @@
+header.navbar.navbar-fixed-top.navbar-inverse
+  .container
+    = link_to 'Job Application', root_path, id: 'logo'
+    nav
+      .navbar-header
+        button.navbar-toggle.collapsed type='button' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1' aria-expanded='false'
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      ul.nav.navbar-nav.navbar-right.collapse.navbar-collapse id='bs-example-navbar-collapse-1'
+        li = link_to 'Home', '#'
+        li = link_to 'Help', '#'
+        li = link_to 'Log in', '#'

@@ -1,30 +1,26 @@
 h1 Job Listings
 
-/ = form_with url: jobs_path, method: :get, local: true do |form|
-/   label Job Type:
-/   = form.select :job_type, options_for_select(@job_types, params[:job_type]), include_blank: "All"
-
-/   label Title:
-/   = form.text_field :title, value: params[:title]
-
-/   = form.submit "Search"
 .row
-    .field
-      = label_tag :query, 'Search:'
-      = text_field_tag :query, params[:query], placeholder: 'Nhập name hoặc email', class: 'form-control'
+  = form_with url: jobs_path, method: :get, local: true do |form|
+    div.form-group
+      = form.label :title, 'Job Title:', class: 'form-label'
+      = form.text_field :title, placeholder: 'Search by job title ...', value: params[:title], class: 'form-control'
 
-    .actions
-      = submit_tag 'Tìm kiếm', class: 'btn btn-info btn-lg'
+    div.form-group
+      = form.label :job_type, 'Job Type:', class: 'form-label'
+      = form.select :job_type, options_for_select(Job.job_types.keys.map { |key| [key.titleize, key] }, params[:job_type]), include_blank: 'All', class: 'form-control'
 
-
+    = form.submit 'Search', class: 'btn btn-primary btn-md', style: 'margin-top: 10px'
+    = link_to 'Create job', import_jobs_path, class: 'btn btn-success', style: 'margin-top: 10px; margin-left: 10px'
+  - if @jobs.any?
     ul
       = will_paginate @jobs, renderer: BootstrapPagination::Rails, previous_label: 'Previous', next_label: 'Next'
       - @jobs.each do |job|
-        li
-          h2 = link_to job.title, job_path(job)
+        li.jumbotron
+          h2.company_name = link_to job.title, job_path(job)
           p 
             | Created at: 
-            = job.created_at
+            = job.created_at.strftime("%d/%m/%Y")
           p
             | Company: 
             = job.company.name
@@ -34,7 +30,6 @@ h1 Job Listings
           p
             | Type: 
             = job.job_type
-          p 
-            | Description: 
-            = job.description
+          = link_to 'Details', job_path(job), class: 'btn btn-info'
+        hr
       = will_paginate @jobs, renderer: BootstrapPagination::Rails, previous_label: 'Previous', next_label: 'Next'
