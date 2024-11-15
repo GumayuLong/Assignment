@@ -1,6 +1,6 @@
 class Application < ApplicationRecord
   belongs_to :job
-  validates :job, presence: true  
+  validates :job, presence: true
   validate :job_exists?
 
   def send_application_email
