@@ -1,6 +1,6 @@
 class Application < ApplicationRecord
   belongs_to :job
-  validates :job, presence: true
+  validates :job_id, uniqueness: { scope: :application_email, message: 'You have already applied for this job with this email!' }, presence: true
   validate :job_exists?
 
   def send_application_email

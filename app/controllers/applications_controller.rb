@@ -18,7 +18,7 @@ class ApplicationsController < ApplicationController
       flash[:notice] = 'Your application has been submitted successfully!'
       redirect_to @job
     else
-      render :new
+      render :new, alert: @application.errors.full_messages.to_sentence
     end
   end
 
