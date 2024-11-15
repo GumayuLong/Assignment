@@ -13,13 +13,13 @@ companies = []
 end
 
 50.times do
+  job_type = [:full_time, :part_time, :freelance].sample
   job = Job.create!(
     title: Faker::Job.title,
     company: companies.sample,
     location: Faker::Address.city,
-    job_type: rand(1..3),
+    job_type: Job.job_types[job_type],
     description: Faker::Lorem.paragraph(sentence_count: 50),
-    created_at: Faker::Date.backward(days: 30)
   )
   job.locations << locations.sample(rand(1..3))
 end

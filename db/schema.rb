@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_033432) do
     t.string "title"
     t.bigint "company_id", null: false
     t.string "location"
-    t.integer "job_type"
+    t.integer "job_type", default: 0
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -6,6 +6,12 @@ class ApplicationsController < ApplicationController
   end
 
   def create
+    unless @job
+      flash[:alert] = 'Job not found.'
+      redirect_to jobs_path
+      return
+    end
+
     @application = @job.applications.build(application_params)
     if @application.save
       @application.send_application_email
